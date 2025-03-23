@@ -2,7 +2,7 @@ local M = {}
 
 local defaults = {
   storage = {
-    path = vim.fn.stdpath('data') .. '/bookmarks.lua',
+    path = vim.fn.stdpath('data') .. '/bookmarks.json',
   },
 }
 
