@@ -1,0 +1,109 @@
+"==============================================================================
+" bookmarks-tool.txt                 *bookmarks-tool.txt*  Plugin Documentation
+"==============================================================================
+"
+" NAME
+"     my-bookmarks.nvim - A Neovim plugin for managing file bookmarks with
+"     Telescope integration.
+"
+" SYNOPSIS
+"     :NewBookmark [description]
+"     :BookmarkGlobal
+"     :BookmarkScoped
+"
+" DESCRIPTION
+"     my-bookmarks.nvim is a minimalistic bookmark manager for Neovim that leverages
+"     Telescope for searching and opening bookmarks. Bookmarks include:
+"
+"         - File path, line and column (the cursor position when the bookmark is
+"           created)
+"         - An optional description
+"         - The project (the working directory where the bookmark was created)
+"         - A creation timestamp (a Unix timestamp)
+"         - A unique 6-character alphanumeric id
+"
+"     Bookmarks are stored in a user-configurable Lua file, which allows for easy
+"     version control and manual editing.
+"
+" COMMANDS
+"
+"     :NewBookmark [description]
+"         Create a new bookmark at the current cursor position.
+"
+"         You may specify a description with:
+"
+"             :NewBookmark description="Your bookmark description"
+"
+"         If no description is provided, the bookmark is created without one.
+"
+"     :BookmarkGlobal
+"         Open a Telescope picker to search through all bookmarks.
+"
+"     :BookmarkScoped
+"         Open a Telescope picker to search bookmarks in the current working
+"         directory.
+"
+" TELESCOPE PICKER KEY BINDINGS
+"
+"     When the Telescope picker is open:
+"
+"         <Enter>   - Open the selected bookmark's file at the saved line and
+"                     column.
+"         <C-d>     - Delete the selected bookmark.
+"         <C-e>     - Edit the selected bookmark's description.
+"
+"     After editing or deleting a bookmark, the picker automatically refreshes
+"     the list to reflect changes.
+"
+" CONFIGURATION
+"
+"     Users can override the default configuration by calling the setup function.
+"     For example, to set a custom bookmarks directory, add the following to your
+"     init.lua:
+"
+"         require('my_bookmarks').setup({
+"             bookmarks_dir = "/path/to/bookmarks"
+"         })
+"
+"     The 'bookmarks_dir' option specifies the directory where the bookmarks
+"     file (bookmarks.lua) is stored.
+"
+" FILE STORAGE FORMAT
+"
+"     Bookmarks are stored in a Lua file (bookmarks.lua) in the configured
+"     directory. The file is a Lua table with each entry following this format:
+"
+"         {
+"           id          = "a1B2c3",
+"           file        = "/path/to/file.lua",
+"           line        = 42,
+"           col         = 10,
+"           description = "Bookmark description",
+"           project     = "/path/to/project",
+"           timestamp   = 1672531200,
+"         },
+"
+"     This format is human-readable and allows you to manually edit or commit
+"     the file to version control.
+"
+" INSTALLATION
+"
+"     Using Lazy (LazyVim) as a package manager, add the following to your
+"     configuration:
+"
+"         {
+"           "gustavofsantos/bookmarks-tool.nvim",
+"           config = function()
+"             require("bookmarks").setup({
+"               bookmarks_dir = vim.fn.expand("~/.config/nvim/bookmarks")
+"             })
+"           end,
+"         }
+"
+" AUTHOR
+"     Gustavo Santos <gustavofsantos@outlook.com>
+"
+" LICENSE
+"     MIT License. See the LICENSE file for details.
+"
+"==============================================================================
