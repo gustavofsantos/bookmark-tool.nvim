@@ -37,6 +37,7 @@ function M.new(opts)
   }
 
   local bookmarks = storage.load()
+  print(vim.inspect(bookmarks))
   table.insert(bookmarks, bookmark)
   storage.save(bookmarks)
 

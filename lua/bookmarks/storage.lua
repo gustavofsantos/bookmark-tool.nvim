@@ -4,17 +4,18 @@ local M = {}
 
 function M.load()
   local path = config.config.storage.path
-  local data = {}
-  if vim.uv.fs_access(path, "r") == 0 then
-    local file = io.open(path, "r")
-    if file then
-      local content = file:read("*a")
-      file:close()
-      data = vim.json.decode(content) or {}
-    end
+  if vim.fn.filereadable(path) == 0 then
+    return {}
   end
 
-  return data
+  local file = io.open(path, "r")
+  if not file then
+    return {}
+  end
+
+  local content = file:read("*a")
+  file:close()
+  return vim.json.decode(content) or {}
 end
 
 function M.save(bookmarks)

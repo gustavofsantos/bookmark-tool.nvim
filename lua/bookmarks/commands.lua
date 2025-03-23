@@ -42,7 +42,7 @@ function M.scoped_search()
 end
 
 function M.search()
-  local bookmarks = M.list()
+  local bookmarks = core.list()
   local function on_mutate()
     picker.telescope_picker(M.scoped_list())
   end
