@@ -1,5 +1,20 @@
 local M = {}
 
+function M.format_entry(bookmark)
+  local file = bookmark.file
+  local line = bookmark.line
+  local description = bookmark.description or ""
+
+  local display = ""
+  if description == "" then
+    display = string.format("%s:%d", file, line)
+  else
+    display = string.format("%s %s:%d", description, file, line)
+  end
+
+  return display
+end
+
 function M.telescope_picker(bookmarks, on_mutate)
   local has_telescope, _ = pcall(require, 'telescope')
   if not has_telescope then
@@ -15,7 +30,7 @@ function M.telescope_picker(bookmarks, on_mutate)
     finder = finders.new_table {
       results = bookmarks,
       entry_maker = function(entry)
-        local display = string.format("[%s] %s:%d - %s", entry.id, entry.file, entry.line, entry.description or "")
+        local display = M.format_entry(entry)
         return {
           value = entry,
           display = display,
